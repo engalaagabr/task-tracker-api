@@ -105,3 +105,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# settings.py
+from datetime import timedelta
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+# Optional customization
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,          # Gives a new refresh token upon refresh
+    'BLACKLIST_AFTER_ROTATION': True,       # Invalidates old refresh tokens
+    'AUTH_HEADER_TYPES': ('Bearer',),       # Expects "Authorization: Bearer <token>"
+}
