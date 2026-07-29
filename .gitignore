@@ -1,0 +1,91 @@
+# ==========================================
+# Environments & Virtualenvs
+# ==========================================
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+bin/
+lib/
+include/
+
+# ==========================================
+# Environment Variables & Secrets
+# ==========================================
+.env
+.env.*
+!.env.example
+!.env.template
+*.pem
+*.key
+
+# ==========================================
+# Django Specific
+# ==========================================
+# Local development settings
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Media and static directories (if local storage is used)
+/media/
+/static_root/
+/staticfiles/
+
+# Logs
+*.log
+logs/
+
+# ==========================================
+# Python & Byte-compiled files
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ==========================================
+# Testing, Coverage & Quality
+# ==========================================
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py.cover
+.hypothesis/
+.pytest_cache/
+htmlcov/
+
+# ==========================================
+# IDEs & Code Editors
+# ==========================================
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# PyCharm / IntelliJ
+.idea/
+
+# General editor backups
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
