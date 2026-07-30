@@ -210,35 +210,17 @@ task-tracker-api/
 
 ### Application Flow
 
-```text
-Client Request
-      │
-      ▼
- URLs / Routers
-      │
-      ▼
-Authentication (JWT)
-      │
-      ▼
-Views / ViewSets
-      │
-      ├── Ownership & Access Control
-      ├── Filtering / Search / Ordering
-      │
-      ▼
-  Serializers
-      │
-      ├── Validation
-      └── Serialization
-      │
-      ▼
-    Models
-      │
-      ▼
-   Database
-      │
-      ▼
- API Response
+```mermaid
+flowchart TD
+    A[Client Request] --> B[URL Routing & Nested Routers]
+    B --> C[JWT Authentication]
+    C --> D[ViewSet]
+    D --> E[Authorization & Ownership Check]
+    E --> F[Query Filtering / Search / Ordering]
+    F --> G[Serializer & Validation]
+    G --> H[Model & Database]
+    H --> I[Serialization]
+    I --> J[Paginated API Response]
 ```
 
 The `project` package contains global application configuration, while the `main` application contains the Task Tracker domain and API implementation.
