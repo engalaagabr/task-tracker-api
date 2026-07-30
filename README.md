@@ -104,5 +104,4 @@ python manage.py runserver
 - Add automated tests for auth, ownership, and nested-resource access
 - Add OpenAPI/Swagger API documentation
 - Move settings to environment-based configuration for deployment
-- Add a dependency manifest (`requirements.txt` or `pyproject.toml`)
 - Add CI checks (tests + lint) for pull requests
