@@ -9,6 +9,8 @@ from .serializers import ProjectSerializer, TaskSerializer, RegisterSerializer
 
 from rest_framework import status, permissions
 
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 
 class ProjectViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
@@ -24,6 +26,18 @@ class ProjectViewSet(viewsets.ModelViewSet):
 class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated]
+
+    # 1. Enable the three core filter engines: Exact Filtering, Text Search, and Result Ordering
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    
+    # 2. Fields allowed for exact match filtering 
+    filterset_fields = ['status', 'priority']
+
+    # 3. Text fields that will be scanned during substring searches 
+    search_fields = ['title', 'description']
+
+    # 4. Fields allowed for client-side sorting 
+    ordering_fields = ['due_date', 'created_at', 'priority']
 
     def get_queryset(self):  
         return Task.objects.filter(
