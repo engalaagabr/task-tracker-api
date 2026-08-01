@@ -12,6 +12,10 @@ from rest_framework import status, permissions
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 
+from rest_framework.generics import get_object_or_404
+
+from django.http import Http404
+
 class ProjectViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectSerializer
     permission_classes = [IsAuthenticated]
@@ -39,15 +43,24 @@ class TaskViewSet(viewsets.ModelViewSet):
     # 4. Fields allowed for client-side sorting 
     ordering_fields = ['due_date', 'created_at', 'priority']
 
-    def get_queryset(self):  
+    def get_queryset(self):
+        project_pk = self.kwargs.get('project_pk')
+
+        if not Project.objects.filter(id=project_pk, owner=self.request.user).exists():
+            raise Http404("Project not found or access denied")
+          
         return Task.objects.filter(
-            project_id=self.kwargs['project_pk'],
-            # IDOR (Insecure Direct Object Reference)
-            project__owner=self.request.user  # __ to call parednt attribute
+            project_id=project_pk,
+            project__owner=self.request.user  # IDOR protection
         )
 
     def perform_create(self, serializer):
-        serializer.save(project_id=self.kwargs['project_pk'])
+        project = get_object_or_404(
+            Project, 
+            id=self.kwargs['project_pk'], 
+            owner=self.request.user
+        )
+        serializer.save(project=project)
 
 class RegisterView(APIView):
     permission_classes = [permissions.AllowAny]
